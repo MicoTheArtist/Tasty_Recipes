@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<rss version="2.0" >
+	<channel>
+		
+		<title>5 Most Recently Added Recipes</title>
+		<link></link>
+		<description></description>
+		
+		<item>
+			<title>Quick and Easy Chicken Noodle Soup Recipe - Allrecipes.com</title>
+			<link>http://allrecipes.com//Recipe/quick-and-easy-chicken-noodle-soup/Detail.aspx</link>
+			<description>Chicken, noodles and carrots are simmered in canned chicken and vegetable</description>			
+		</item>
+		
+		<item>
+			<title>Homemade Chicken Soup Recipe - Allrecipes.com</title>
+			<link>http://allrecipes.com//Recipe/homemade-chicken-soup/Detail.aspx</link>
+			<description>How is it that plain chicken and vegetables simmered together can taste so satisfying?</description>
+		</item>
+		
+		<item>
+			<title>Lunch Recipes - Sandwiches, Salads, and Soup Lunch Foods - Delish.com</title>
+			<link>http://www.delish.com/recipes/best-recipes/lunch-recipes</link>
+			<description>From soups to salads and sandwiches, we\'ve assembled the cream of the crop for this lunch-inspired collection.</description>
+		</item>
+		
+		<item>
+			<title>Cooking for Two - Lunch Recipes - Allrecipes.com</title>
+			<link>http://allrecipes.com//Recipes/everyday-cooking/cooking-for-two/lunch/Main.aspx</link>
+			<description>Browse more than 110 lunch recipes perfect for just the two of you. Find ...</description>
+		</item>
+		
+		<item>
+			<title>Lunch Box Recipes - Allrecipes.com</title>
+			<link>http://allrecipes.com//Recipes/holidays-and-events/events-and-gatherings/back-to-school/lunch-box/Main.aspx</link>
+			<description>Looking for lunch box recipes? Allrecipes has more than 120 trusted school lunch recipes complete with ratings, reviews and cooking tips.</description>
+		</item>
+		
+	</channel>
+</rss>

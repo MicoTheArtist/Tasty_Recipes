@@ -1,0 +1,101 @@
+<?php
+## tasty_utilities.inc.php -- this is a private library.
+
+## functions
+
+	## member_db_connect () -- this is the database handle that allows for select, insert and update for all tables except the customer_login table
+	## Because this allows for the insertion and update of the tables, it is safer not to make this a public function to prevent an anonomous person
+	## from courrupting the table with min information.
+	function member_db_connect() {
+	
+			$host = "localhost:/users/mespinosa/mysql-php/data/mysql.sock";
+			$user = "tasty_member";
+			$pw = "trish123";
+			$database = "tasty_recipes";
+			
+			$db = mysql_connect($host, $user, $pw)
+					or die ("Cannot connect to MySQL");
+			mysql_select_db($database, $db)
+					or die ("Cannot connect to Database");
+					
+			return $db;					
+						
+	}												
+						
+	## login_db_connect () -- this is the database handle that allows for the select, insert, and update on customer_logins and tasty_network only.
+	## Because this allows for the insertion and update of the tables, it is safer not to make this a public function to prevent an anonomous person
+	## from courrupting the table with min information.	
+	function login_db_connect() {
+	
+			$host = "localhost:/users/mespinosa/mysql-php/data/mysql.sock";
+			$user = "tasty_login";
+			$pw = "scott123";
+			$database = "tasty_recipes";
+			
+			$db = mysql_connect($host,$user,$pw)
+					or die ("Cannot connect to MySQL");
+			mysql_select_db ($database, $db)
+					or die ("Cannot connect to Database");		
+					
+			return $db;					
+					
+	}
+	
+	## fetch_login_members -- this function will fetch the profile for all of the members that are linked to the logged in member
+	## Because this function is designed to check for a members login and password, it is better not to make it a public function,
+	## to prevent an anonomous person from looping throught the customer_login table, just to see if a member exists within t.as.ty recipes.
+	function fetch_login_member ($profileID, $db) {	
+		$login_member_array = array();
+		if (is_numeric($profileID)) {
+			$command = "select cl.login,
+							   tn.req_member,
+							   tn.app_member
+						from customer_logins cl, tasty_network tn
+						where cl.date_deactivated <= 0
+						and tn.date_deleted <= 0
+						and (tn.app_member = cl.customer_id and tn.req_member = ".addslashes($profileID).");";
+			$result = mysql_query($command);
+			while ($this_login_array = mysql_fetch_assoc($result)) {
+				array_push($login_member_array, $this_login_array);
+			}
+		}
+		return $login_member_array;
+	}
+	
+	
+	## fetch_customer_bookmarks -- this function will return a multi-dimensional array containing all of the bookmarks for the member in question	
+	function fetch_customer_bookmarks ($profileID, $db, $page, $bookmark_id = '') {
+	
+		## set $bookmark_id
+		$bookmark_array = array();	
+		## if $profileID
+		if ($profileID) {
+			## commmand -- find all of the bookmarks for a specific member
+			$command = "select cb.customer_id, 
+							   cb.bookmark_id, 
+							   cb.title, 
+							   cb.notes, 
+							   unix_timestamp(cb.date_posted) as date_posted, 
+							   bu.url 
+							   from customer_bookmarks cb, bookmark_urls bu 
+							   where cb.bookmark_id = bu.bookmark_id 
+							   and cb.customer_id = ".addslashes($profileID)."";
+			## if $bookmark_id
+			if (is_numeric($bookmark_id)) {
+				## command -- add on the sql to find the specific bookmark
+				$command .= " and cb.bookmark_id = ".addslashes($bookmark_id)." ";				
+			}
+			$result = mysql_query($command);
+			## use while , mysql_fetch_assoc()
+			while ($this_bookmark = mysql_fetch_assoc($result)) {
+				
+				array_push($bookmark_array, $this_bookmark); ## array_push
+				
+			}				
+		}
+		return $bookmark_array;	
+					
+				
+	}				
+
+?>
